@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B‑LAB Medical Laboratory</title>
+  <style>
+    :root {
+      /* Bleu de nuit – ton principal */
+      --primary: #002147;
+      --dark: #333;
+      --light: #f5f5f5;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:"Segoe UI",Arial,sans-serif;line-height:1.6;color:var(--dark);scroll-behavior:smooth;}
+
+    /* Navigation */
+    header{background:var(--primary);color:#fff;padding:0.5rem 2rem;position:sticky;top:0;z-index:1000;}
+    nav{display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto;}
+    .logo{display:flex;align-items:center;gap:0.6rem;font-weight:700;font-size:1.1rem;}
+    .logo-icon{width:32px;height:32px;object-fit:contain;}
+    .flag-icon{width:24px;height:16px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.6);}
+    nav a{color:#fff;text-decoration:none;margin:0 1rem;font-weight:600;}
+    nav a:hover{text-decoration:underline;}
+
+    /* Sections */
+    section{display:none;padding:4rem 1rem;max-width:1100px;margin:0 auto;}
+    section.active{display:block;}
+    h2{color:var(--primary);margin-bottom:1rem;}
+    ul{list-style-type:disc;padding-left:1.2rem;margin-bottom:1.5rem;}
+
+    /* Welcome */
+    #welcome{text-align:center;}
+    #welcome h1{margin-bottom:0.5rem;color:var(--primary);font-size:2rem;}
+    #welcome p{max-width:900px;margin:0 auto 2rem;}
+    .hero-img{width:100%;height:auto;display:block;object-fit:cover;max-height:480px;border-radius:6px;}
+
+    /* Contact cards */
+    .contact-card{background:var(--light);padding:1rem 1.5rem;border-left:4px solid var(--primary);margin-bottom:1rem;border-radius:4px;}
+    .contact-card h3{margin:0 0 0.25rem 0;}
+
+    /* Chatbot */
+    .chat-toggle{position:fixed;right:1.5rem;bottom:1.5rem;width:56px;height:56px;border-radius:50%;background:var(--primary);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 4px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:1200;}
+    .chat-window{position:fixed;right:1rem;bottom:4.5rem;width:320px;max-width:calc(100vw - 2rem);height:420px;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.25);display:none;flex-direction:column;overflow:hidden;z-index:1200;}
+    .chat-header{background:var(--primary);color:#fff;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;font-weight:600;}
+    .chat-messages{flex:1;padding:1rem;overflow-y:auto;font-size:0.9rem;}
+    .chat-input{display:flex;border-top:1px solid #ddd;}
+    .chat-input input{flex:1;border:none;padding:0.75rem;font-size:0.9rem;outline:none;}
+    .chat-input button{background:var(--primary);color:#fff;border:none;padding:0 1rem;cursor:pointer;font-size:1rem;}
+    .msg{margin-bottom:0.5rem;line-height:1.4;}
+    .msg.user{text-align:right;}
+    .msg.bot{text-align:left;}
+
+    /* Responsive */
+    @media(min-width:768px){nav a{margin:0 1.5rem;}#welcome h1{font-size:2.5rem;}}
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="assets/b-lab-logo.svg" class="logo-icon" alt="B‑LAB logo" />
+        <span>B‑LAB</span>
+        <img src="assets/senegal-flag.svg" class="flag-icon" alt="Flag of Senegal" />
+      </div>
+      <div>
+        <a href="#welcome">Welcome</a>
+        <a href="#analyses">Medical Analyses</a>
+        <a href="#contact">Contact Us</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Welcome Section -->
+  <section id="welcome" class="active">
+    <h1>Welcome to B-LAB</h1>
+    <p>B-LAB is a medical diagnostics laboratory located at the Fann Hospital in Dakar, within the Infectious and Tropical Diseases Department. We specialize in infectious disease research and routine testing. Our team consists of highly qualified professionals committed to ethical, accurate and high‑quality work.</p>
+    <img class="hero-img" src="assets/lab-hero.jpg" alt="B-LAB laboratory overview" />
+  </section>
+
+  <!-- Medical Analyses Section -->
+  <section id="analyses">
+    <h2>Medical Analyses</h2>
+    <h3>Blood Biochemistry</h3>
+    <ul>
+      <li>Transaminases (ALT &amp; AST), Gamma‑GT</li>
+      <li>Bilirubin (Total and Direct)</li>
+      <li>Fasting and Postprandial Blood Glucose</li>
+      <li>Creatinine, Uric Acid, Blood Urea Nitrogen</li>
+      <li>Lipid Profile (Total Cholesterol, HDL, LDL, Triglycerides)</li>
+      <li>Calcium, Magnesium, Electrolytes (Ionogram)</li>
+      <li>Protein Assays (Albumin, Total Proteins)</li>
+      <li>Enzymatic Assays (CPK, LDH, Amylase, Lipase)</li>
+    </ul>
+    <h3>Hematology</h3>
+    <ul>
+      <li>Complete Blood Count (CBC)</li>
+      <li>Emmel Test, Reticulocyte Count</li>
+      <li>Erythrocyte Sedimentation Rate (ESR)</li>
+      <li>Coagulation Factor Testing</li>
+      <li>Antibody Screening (Direct &amp; Indirect Coombs Test)</li>
+    </ul>
+    <h3>Urinalysis</h3>
+    <ul><li>Urine Test Strips</li></ul>
+    <h3>Serology</h3>
+    <ul>
+      <li><strong>Viral Hepatitis</strong>: Hepatitis A (IgG + IgM), HBsAg, Anti‑HBs, Anti‑HBc, Hepatitis C Antibodies</li>
+      <li><strong>HIV</strong>: HIV‑1 &amp; HIV‑2 (p24 Antigen)</li>
+      <li>Rubella / CMV / Toxoplasmosis: IgG &amp; IgM</li>
+      <li>COVID‑19: IgG/IgM Antibodies or Viral Antigen</li>
+      <li>Syphilis (Antibody Detection)</li>
+      <li>Chlamydia (IgG Serology)</li>
+      <li><strong>Detection Techniques</strong>: Flocculation, Complement Fixation, Immunofluorescence, ELISA, Western Blot</li>
+    </ul>
+    <h3>Parasitology</h3>
+    <ul>
+      <li>Stool Parasite Examination</li>
+      <li>Urine &amp; Blood Parasite Detection</li>
+    </ul>
+    <h3>Molecular Biology</h3>
+    <ul>
+      <li>PCR, RT‑PCR, LAMP, DNA Amplification</li>
+      <li>Sequencing, Genotyping, Karyotyping</li>
+    </ul>
+    <h3>Sample Collection Conditions</h3>
+    <ul>
+      <li><strong>Blood Biochemistry</strong>: Fasting required (8‑12h) for glucose, cholesterol, triglycerides.</li>
+      <li><strong>Urinalysis</strong>: Avoid contamination (genital cleaning before collection).</li>
+    </ul>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-card">
+      <h3>Prof. Moussa Seydi</h3>
+      <p>Head, Infectious Diseases, CHNU Fann, Dakar<br />
+      <a href="mailto:seydi.moussa@gmail.com">seydi.moussa@gmail.com</a></p>
+    </div>
+    <div class="contact-card">
+      <h3>Dr. Bruce Wembulua Shinga</h3>
+      <p>MD, MSc, PhD<br />
+      <a href="mailto:bruliawems@gmail.com">bruliawems@gmail.com</a></p>
+    </div>
+    <div class="contact-card">
+      <h3>Dr. Bintou Fall</h3>
+      <p>PhD, Research Biologist, CHNU Fann, Dakar<br />
+      <a href="mailto:bintoufall2298@gmail.com">bintoufall2298@gmail.com</a></p>
+    </div>
+  </section>
+
+  <!-- Chatbot -->
+  <button class="chat-toggle" id="chatToggle">💬</button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">B-LAB Chatbot <span id="chatClose" style="cursor:pointer;font-weight:700;">&times;</span></div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Type your message…" />
+      <button id="chatSend">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Navigation Logic ----------
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("section");
+      const navLinks = document.querySelectorAll("nav a");
+
+      function showSection(id) {
+        sections.forEach(sec => {
+          if (sec.id === id) {
+            sec.classList.add("active");
+          } else {
+            sec.classList.remove("active");
+          }
+        });
+      }
+
+      function applyHash() {
+        const id = location.hash.replace("#", "") || "welcome";
+        showSection(id);
+      }
+
+      navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          // allow hash to update first
+          setTimeout(applyHash, 10);
+        });
+      });
+
+      window.addEventListener("hashchange", applyHash);
+      applyHash();
+    });
+
+    // ---------- Chatbot Logic ----------
+    (() => {
+      const toggleBtn = document.getElementById("chatToggle");
+      const chatWindow = document.getElementById("chatWindow");
+      const closeBtn = document.getElementById("chatClose");
+      const msgContainer = document.getElementById("chatMessages");
+      const input = document.getElementById("chatInput");
+      const sendBtn = document.getElementById("chatSend");
+
+      const responses = {
+        analyses:"We offer a wide range of analyses including blood biochemistry, hematology, serology, parasitology and molecular biology.",
+        horaires:"We are open Monday to Friday, 8:00 am – 5:00 pm.",
+        rendez:"To book an appointment, please email bruliawems@gmail.com or call +221 XX XXX XX XX.",
+        localisation:"We are located at CHNU Fann, Infectious and Tropical Diseases Department, Dakar.",
+        contact:"You can email Prof. Seydi at seydi.moussa@gmail.com or the lab at bruliawems@gmail.com."
+      };
+
+      function appendMessage(text, type) {
+        const p = document.createElement("p");
+        p.className = `msg ${type}`;
+        p.textContent = text;
+        msgContainer.appendChild(p);
+        msgContainer.scrollTop = msgContainer.scrollHeight;
+      }
+
+      function botReply(userText) {
+        const lower = userText.toLowerCase();
+        const key = Object.keys(responses).find(k => lower.includes(k));
+        const reply = key ? responses[key] : "I'm not sure I understand. Could you please rephrase or send us an email?";
+        appendMessage(reply, "bot");
+      }
+
+      function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+        appendMessage(text, "user");
+        input.value = "";
+        setTimeout(() => botReply(text), 500);
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        chatWindow.style.display = chatWindow.style.display === "flex" ? "none" : "flex";
+        if (chatWindow.style.display === "flex") {
+          msgContainer.scrollTop = msgContainer.scrollHeight;
+          input.focus();
+        }
+      });
+
+      closeBtn.addEventListener("click", () => chatWindow.style.display = "none");
+      sendBtn.addEventListener("click", sendMessage);
+      input.addEventListener("keypress", e => {
+        if (e.key === "Enter") sendMessage();
+      });
+    })();
+  </script>
+</body>
+</html>
