@@ -22,6 +22,9 @@
       color: var(--dark);
       background-color: var(--white);
       scroll-behavior: smooth;
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 60px; /* Espace pour le footer */
     }
     
     /* Navigation */
@@ -67,11 +70,12 @@
     }
     
     .flag-icon { 
-      width: 24px; 
-      height: 16px; 
+      width: 30px; /* Taille légèrement augmentée */
+      height: 20px; 
       object-fit: cover; 
       border-radius: 2px; 
-      box-shadow: 0 0 0 1px rgba(0,0,0,0.1); 
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+      margin-left: 0.5rem; /* Espacement entre B-LAB et le drapeau */
     }
     
     nav a {
@@ -324,6 +328,28 @@
       margin-right: auto;
     }
     
+    /* Style pour les listes dans les messages du chatbot */
+    .msg.bot ul {
+      margin: 0.5rem 0;
+      padding-left: 1.2rem;
+    }
+    
+    .msg.bot li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* Footer */
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: var(--secondary);
+      color: var(--white);
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+    }
+    
     /* Responsive */
     @media (max-width: 768px) {
       section {
@@ -362,9 +388,18 @@
         width: 50px;
       }
       
+      .flag-icon {
+        width: 25px;
+        height: 17px;
+      }
+      
       .chat-window {
         width: calc(100vw - 2rem);
         right: 1rem;
+      }
+
+      body {
+        padding-bottom: 70px; /* Plus d'espace pour le footer sur mobile */
       }
     }
   </style>
@@ -376,7 +411,7 @@
       <div class="logo">
         <img src="https://raw.githubusercontent.com/BinouB/Lab-project/main/Capture%20d%E2%80%99%C3%A9cran%20(137).png" class="logo-icon" alt="B‑LAB logo" />
         <span>B‑LAB</span>
-        <img src="assets/senegal-flag.svg" class="flag-icon" alt="Flag of Senegal" />
+        <img src="https://raw.githubusercontent.com/BinouB/Lab-project/main/drapeau%20senegal.jpg" class="flag-icon" alt="Flag of Senegal" />
       </div>
       <div class="nav-links">
         <a href="#welcome">Welcome</a>
@@ -485,6 +520,11 @@
     </div>
   </section>
 
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 B-LAB Medical Laboratory. All Rights Reserved.
+  </footer>
+
   <!-- Chatbot -->
   <button class="chat-toggle" aria-label="Open chat">💬</button>
   <div class="chat-window">
@@ -493,10 +533,12 @@
       <button class="chat-close" aria-label="Close chat">×</button>
     </div>
     <div class="chat-messages">
-      <div class="msg bot">Hello! I'm the B-LAB virtual assistant. How can I help you today? Here are common questions:<br><br>
-        • What are your opening hours?<br>
-        • How to prepare for a test?<br>
-        • Where are you located?</div>
+      <div class="msg bot">Hello! I'm the B-LAB virtual assistant. How can I help you today? Here are some topics I can assist with:<br><br>
+        • Types of analyses we perform<br>
+        • Preparation for specific tests<br>
+        • Opening hours and location<br>
+        • Contact information<br>
+        • Sample collection procedures</div>
     </div>
     <div class="chat-input">
       <input type="text" placeholder="Type your message..." aria-label="Type your message" />
@@ -555,27 +597,127 @@
     function addMessage(text, isUser) {
       const msgDiv = document.createElement('div');
       msgDiv.classList.add('msg', isUser ? 'user' : 'bot');
-      msgDiv.textContent = text;
+      
+      // Check if the text contains HTML list tags
+      if (text.includes('<ul>') || text.includes('<li>')) {
+        msgDiv.innerHTML = text;
+      } else {
+        msgDiv.textContent = text;
+      }
+      
       chatMessages.appendChild(msgDiv);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    // Simple responses
+    // Enhanced responses with analysis details
     function getBotResponse(userMessage) {
       const lowerMsg = userMessage.toLowerCase();
       
       if (lowerMsg.includes('hour') || lowerMsg.includes('open')) {
-        return "We're open Monday-Friday from 7:30AM to 5:00PM, and Saturdays from 8:00AM to 12:00PM.";
-      } else if (lowerMsg.includes('test') || lowerMsg.includes('prepare')) {
-        return "Most blood tests require 8-12 hours fasting. For urine tests, please clean the genital area before collection. Specific tests may have additional requirements.";
-      } else if (lowerMsg.includes('location') || lowerMsg.includes('where')) {
-        return "We're located at CHNU Fann, Infectious Diseases Department, BP 5035, Dakar, Senegal.";
-      } else if (lowerMsg.includes('contact') || lowerMsg.includes('phone')) {
-        return "You can email us at info@blab.sn for any inquiries.";
-      } else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) {
-        return "Hello! How can I assist you today?";
-      } else {
-        return "Thank you for your message. For detailed inquiries, please email info@blab.sn";
+        return "We're open:<br><ul><li>Monday-Friday: 7:30AM to 5:00PM</li><li>Saturday: 8:00AM to 12:00PM</li><li>Closed on Sundays and public holidays</li></ul>";
+      } 
+      else if (lowerMsg.includes('test') || lowerMsg.includes('prepare') || lowerMsg.includes('fasting')) {
+        return "Preparation depends on the test:<br><ul>"
+          + "<li><strong>Blood tests</strong>: 8-12 hours fasting (water allowed)</li>"
+          + "<li><strong>Glucose tolerance test</strong>: Overnight fasting + specific instructions</li>"
+          + "<li><strong>Urine tests</strong>: First morning sample preferred, clean genital area before collection</li>"
+          + "<li><strong>Stool tests</strong>: Avoid certain medications 3 days prior</li></ul>"
+          + "For specific instructions, please ask about a particular test.";
+      } 
+      else if (lowerMsg.includes('location') || lowerMsg.includes('where') || lowerMsg.includes('address')) {
+        return "We're located at:<br><strong>CHNU Fann, Infectious Diseases Department<br>BP 5035, Dakar, Senegal</strong><br><br>You can find us within the Fann Hospital complex, near the main entrance of the Infectious Diseases building.";
+      } 
+      else if (lowerMsg.includes('contact') || lowerMsg.includes('phone') || lowerMsg.includes('email')) {
+        return "You can reach us through:<br><ul>"
+          + "<li><strong>Email</strong>: info@blab.sn</li>"
+          + "<li><strong>Phone</strong>: +221 33 869 XX XX</li>"
+          + "<li><strong>In person</strong>: At our laboratory during working hours</li></ul>";
+      } 
+      else if (lowerMsg.includes('hi') || lowerMsg.includes('hello') || lowerMsg.includes('bonjour')) {
+        return "Hello! Welcome to B-LAB medical laboratory. How can I assist you today?";
+      } 
+      else if (lowerMsg.includes('analys') || lowerMsg.includes('test') || lowerMsg.includes('type')) {
+        return "We perform various types of medical analyses:<br><ul>"
+          + "<li><strong>Blood Biochemistry</strong>: Liver/kidney function, diabetes screening, electrolytes</li>"
+          + "<li><strong>Hematology</strong>: Complete blood count, coagulation tests</li>"
+          + "<li><strong>Serology</strong>: HIV, hepatitis, COVID-19, other infectious diseases</li>"
+          + "<li><strong>Molecular Biology</strong>: PCR tests, viral load quantification</li>"
+          + "<li><strong>Parasitology</strong>: Malaria, intestinal parasites</li>"
+          + "<li><strong>Urinalysis</strong>: Kidney function, urinary infections</li></ul>"
+          + "Would you like details about a specific type of analysis?";
+      }
+      else if (lowerMsg.includes('biochem') || lowerMsg.includes('blood test')) {
+        return "Our blood biochemistry analyses include:<br><ul>"
+          + "<li><strong>Liver function</strong>: ALT, AST, bilirubin, proteins</li>"
+          + "<li><strong>Kidney function</strong>: Creatinine, urea, electrolytes</li>"
+          + "<li><strong>Diabetes</strong>: Fasting glucose, HbA1c</li>"
+          + "<li><strong>Lipids</strong>: Cholesterol, triglycerides</li>"
+          + "<li><strong>Other</strong>: Enzymes, minerals, proteins</li></ul>"
+          + "Most require 8-12h fasting for accurate results.";
+      }
+      else if (lowerMsg.includes('hematology') || lowerMsg.includes('blood count') || lowerMsg.includes('cbc')) {
+        return "Hematology tests we perform:<br><ul>"
+          + "<li><strong>Complete Blood Count (CBC)</strong>: Red/white blood cells, hemoglobin, platelets</li>"
+          + "<li><strong>Special tests</strong>: Reticulocytes, ESR, blood film examination</li>"
+          + "<li><strong>Coagulation</strong>: PT, APTT, coagulation factors</li>"
+          + "<li><strong>Blood group</strong>: ABO and Rh typing</li></ul>"
+          + "These help diagnose anemia, infections, bleeding disorders, etc.";
+      }
+      else if (lowerMsg.includes('serolog') || lowerMsg.includes('antibod') || lowerMsg.includes('hiv') || lowerMsg.includes('hepatitis')) {
+        return "Our serology department performs:<br><ul>"
+          + "<li><strong>Viral hepatitis</strong>: A, B, C (antigens & antibodies)</li>"
+          + "<li><strong>HIV</strong>: Screening and confirmation tests</li>"
+          + "<li><strong>TORCH</strong>: Toxoplasmosis, rubella, CMV, herpes</li>"
+          + "<li><strong>COVID-19</strong>: Antibody and antigen tests</li>"
+          + "<li><strong>Other</strong>: Syphilis, dengue, other infectious diseases</li></ul>"
+          + "We use ELISA, rapid tests, and other advanced techniques.";
+      }
+      else if (lowerMsg.includes('molecular') || lowerMsg.includes('pcr') || lowerMsg.includes('dna')) {
+        return "Molecular biology services:<br><ul>"
+          + "<li><strong>PCR tests</strong>: For various pathogens</li>"
+          + "<li><strong>Viral load</strong>: HIV, hepatitis, other viruses</li>"
+          + "<li><strong>Genotyping</strong>: Viral/bacterial strain identification</li>"
+          + "<li><strong>Other</strong>: DNA amplification, sequencing</li></ul>"
+          + "These are our most specialized and sensitive tests.";
+      }
+      else if (lowerMsg.includes('parasit') || lowerMsg.includes('malaria') || lowerMsg.includes('stool')) {
+        return "Parasitology analyses include:<br><ul>"
+          + "<li><strong>Malaria</strong>: Thick/thin blood smears, rapid tests</li>"
+          + "<li><strong>Intestinal parasites</strong>: Stool examination</li>"
+          + "<li><strong>Urinary parasites</strong>: Schistosomiasis detection</li>"
+          + "<li><strong>Other</strong>: Blood/tissue parasites</li></ul>"
+          + "Proper sample collection is crucial for accurate results.";
+      }
+      else if (lowerMsg.includes('urine') || lowerMsg.includes('urinalysis')) {
+        return "Urinalysis services:<br><ul>"
+          + "<li><strong>Routine exam</strong>: Physical, chemical, microscopic</li>"
+          + "<li><strong>Proteinuria</strong>: Protein/creatinine ratio</li>"
+          + "<li><strong>Culture</strong>: For urinary infections</li>"
+          + "<li><strong>Special tests</strong>: Electrolytes, hormones, drugs</li></ul>"
+          + "First morning sample is usually preferred.";
+      }
+      else if (lowerMsg.includes('time') || lowerMsg.includes('result') || lowerMsg.includes('wait')) {
+        return "Result times vary:<br><ul>"
+          + "<li><strong>Routine tests</strong>: Same day or next day</li>"
+          + "<li><strong>Specialized tests</strong>: 2-5 business days</li>"
+          + "<li><strong>Molecular tests</strong>: 3-7 days</li>"
+          + "<li><strong>Culture tests</strong>: Up to 1 week</li></ul>"
+          + "We'll inform you when your results are ready.";
+      }
+      else if (lowerMsg.includes('price') || lowerMsg.includes('cost') || lowerMsg.includes('fee')) {
+        return "Test costs vary depending on:<br><ul>"
+          + "<li>Type and complexity of the test</li>"
+          + "<li>Number of tests ordered</li>"
+          + "<li>Insurance coverage</li></ul>"
+          + "For specific pricing, please contact our laboratory directly at info@blab.sn or visit us in person.";
+      }
+      else {
+        return "I'm sorry, I didn't understand your question. Here are some topics I can help with:<br><ul>"
+          + "<li>Types of medical analyses we perform</li>"
+          + "<li>How to prepare for specific tests</li>"
+          + "<li>Our opening hours and location</li>"
+          + "<li>Contact information</li></ul>"
+          + "For complex inquiries, please email info@blab.sn";
       }
     }
 
