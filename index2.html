@@ -43,6 +43,12 @@
       margin: 0 auto;
     }
     
+    .nav-links {
+      display: flex;
+      flex: 1;
+      justify-content: flex-end;
+    }
+    
     .logo {
       display: flex;
       align-items: center;
@@ -53,9 +59,11 @@
     }
     
     .logo-icon { 
-      height: 40px; /* Taille augmentée pour le logo */
-      width: auto; /* Maintient les proportions */
-      object-fit: contain;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%; /* Forme circulaire */
+      object-fit: cover; /* Pour s'assurer que l'image remplit bien le cercle */
+      border: 2px solid var(--primary);
     }
     
     .flag-icon { 
@@ -336,8 +344,22 @@
         padding: 1rem 0;
       }
       
+      .nav-links {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .logo {
+        order: 1;
+        margin-bottom: 1rem;
+        justify-content: center;
+        width: 100%;
+      }
+      
       .logo-icon {
-        height: 32px; /* Taille réduite pour mobile */
+        height: 50px;
+        width: 50px;
       }
       
       .chat-window {
@@ -356,7 +378,7 @@
         <span>B‑LAB</span>
         <img src="assets/senegal-flag.svg" class="flag-icon" alt="Flag of Senegal" />
       </div>
-      <div>
+      <div class="nav-links">
         <a href="#welcome">Welcome</a>
         <a href="#analyses">Medical Analyses</a>
         <a href="#contact">Contact Us</a>
@@ -449,24 +471,17 @@
     </div>
     
     <div class="contact-card">
-      <h3>Dr. Bruce Wainer</h3>
+      <h3>Dr. Bintou Fall</h3>
       <p>Laboratory Director<br />
-      <a href="mailto:bwainer@blab.sn">bwainer@blab.sn</a></p>
+      <a href="mailto:bintoufall@blab.sn">bintoufall@blab.sn</a></p>
     </div>
     
     <div class="contact-card">
       <h3>Location & Hours</h3>
       <p>CHNU Fann, Infectious Diseases Department<br />
       BP 5035, Dakar, Senegal<br />
-      Phone: +221 33 869 30 30<br />
       Open: Monday-Friday 7:30AM-5:00PM<br />
       Saturday 8:00AM-12:00PM</p>
-    </div>
-    
-    <div class="contact-card">
-      <h3>Emergency Contacts</h3>
-      <p>After-hours emergencies: +221 77 555 32 10<br />
-      Technical support: support@blab.sn</p>
     </div>
   </section>
 
@@ -556,11 +571,11 @@
       } else if (lowerMsg.includes('location') || lowerMsg.includes('where')) {
         return "We're located at CHNU Fann, Infectious Diseases Department, BP 5035, Dakar, Senegal.";
       } else if (lowerMsg.includes('contact') || lowerMsg.includes('phone')) {
-        return "You can reach us at +221 33 869 30 30 during working hours, or +221 77 555 32 10 for emergencies.";
+        return "You can email us at info@blab.sn for any inquiries.";
       } else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) {
         return "Hello! How can I assist you today?";
       } else {
-        return "Thank you for your message. For detailed inquiries, please call +221 33 869 30 30 or email info@blab.sn";
+        return "Thank you for your message. For detailed inquiries, please email info@blab.sn";
       }
     }
 
