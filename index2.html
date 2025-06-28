@@ -6,53 +6,345 @@
   <title>B‑LAB Medical Laboratory</title>
   <style>
     :root {
-      /* Bleu de nuit – ton principal */
-      --primary: #002147;
-      --dark: #333;
-      --light: #f5f5f5;
+      /* Couleurs révisées pour meilleure lisibilité */
+      --primary: #0056b3; /* Bleu professionnel */
+      --secondary: #002147; /* Bleu de nuit pour accents */
+      --dark: #333; /* Texte principal */
+      --light: #f8f9fa; /* Fond très clair */
+      --white: #ffffff; /* Blanc pur */
     }
-    *{box-sizing:border-box;}
-    body{margin:0;font-family:"Segoe UI",Arial,sans-serif;line-height:1.6;color:var(--dark);scroll-behavior:smooth;}
-
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--white);
+      scroll-behavior: smooth;
+    }
+    
     /* Navigation */
-    header{background:var(--primary);color:#fff;padding:0.5rem 2rem;position:sticky;top:0;z-index:1000;}
-    nav{display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto;}
-    .logo{display:flex;align-items:center;gap:0.6rem;font-weight:700;font-size:1.1rem;}
-    .logo-icon{width:32px;height:32px;object-fit:contain;}
-    .flag-icon{width:24px;height:16px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.6);}
-    nav a{color:#fff;text-decoration:none;margin:0 1rem;font-weight:600;}
-    nav a:hover{text-decoration:underline;}
-
+    header {
+      background: var(--white);
+      color: var(--primary);
+      padding: 0.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+    
+    .logo-icon { 
+      height: 40px; /* Taille augmentée pour le logo */
+      width: auto; /* Maintient les proportions */
+      object-fit: contain;
+    }
+    
+    .flag-icon { 
+      width: 24px; 
+      height: 16px; 
+      object-fit: cover; 
+      border-radius: 2px; 
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.1); 
+    }
+    
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    
+    nav a:hover, nav a:focus { 
+      color: var(--secondary);
+      border-bottom: 2px solid var(--primary);
+    }
+    
     /* Sections */
-    section{display:none;padding:4rem 1rem;max-width:1100px;margin:0 auto;}
-    section.active{display:block;}
-    h2{color:var(--primary);margin-bottom:1rem;}
-    ul{list-style-type:disc;padding-left:1.2rem;margin-bottom:1.5rem;}
-
-    /* Welcome */
-    #welcome{text-align:center;}
-    #welcome h1{margin-bottom:0.5rem;color:var(--primary);font-size:2rem;}
-    #welcome p{max-width:900px;margin:0 auto 2rem;}
-    .hero-img{width:100%;height:auto;display:block;object-fit:cover;max-height:480px;border-radius:6px;}
-
+    section { 
+      display: none; 
+      max-width: 1100px; 
+      margin: 0 auto;
+      background: var(--white);
+    }
+    
+    section.active { display: block; }
+    
+    h2 { 
+      color: var(--primary); 
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      border-bottom: 2px solid var(--light);
+      padding-bottom: 0.5rem;
+    }
+    
+    h3 {
+      color: var(--secondary);
+      margin: 1.5rem 0 1rem 0;
+    }
+    
+    ul { 
+      list-style-type: disc; 
+      padding-left: 1.5rem; 
+      margin-bottom: 1.5rem; 
+      line-height: 1.8;
+    }
+    
+    /* Welcome - Plein écran */
+    #welcome { 
+      position: relative;
+      height: 100vh;
+      text-align: center;
+      padding: 0;
+      max-width: none;
+    }
+    
+    .welcome-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 33, 71, 0.6); /* Fond semi-transparent bleu nuit */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      padding: 2rem;
+      z-index: 1;
+    }
+    
+    #welcome h1 { 
+      margin-bottom: 1.5rem; 
+      color: var(--white); 
+      font-size: 3rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    #welcome p { 
+      max-width: 800px; 
+      margin: 0 auto 2rem; 
+      font-size: 1.2rem;
+      color: var(--white);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    
+    .welcome-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    
+    /* Autres sections */
+    #analyses, #contact {
+      padding: 4rem 1rem;
+    }
+    
     /* Contact cards */
-    .contact-card{background:var(--light);padding:1rem 1.5rem;border-left:4px solid var(--primary);margin-bottom:1rem;border-radius:4px;}
-    .contact-card h3{margin:0 0 0.25rem 0;}
-
+    .contact-card { 
+      background: var(--light); 
+      padding: 1.5rem; 
+      border-left: 4px solid var(--primary); 
+      margin-bottom: 1.5rem; 
+      border-radius: 6px;
+      transition: transform 0.3s ease;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .contact-card h3 { 
+      margin: 0 0 0.5rem 0; 
+      color: var(--primary);
+    }
+    
+    .contact-card a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+    
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+    
     /* Chatbot */
-    .chat-toggle{position:fixed;right:1.5rem;bottom:1.5rem;width:56px;height:56px;border-radius:50%;background:var(--primary);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 4px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:1200;}
-    .chat-window{position:fixed;right:1rem;bottom:4.5rem;width:320px;max-width:calc(100vw - 2rem);height:420px;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.25);display:none;flex-direction:column;overflow:hidden;z-index:1200;}
-    .chat-header{background:var(--primary);color:#fff;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;font-weight:600;}
-    .chat-messages{flex:1;padding:1rem;overflow-y:auto;font-size:0.9rem;}
-    .chat-input{display:flex;border-top:1px solid #ddd;}
-    .chat-input input{flex:1;border:none;padding:0.75rem;font-size:0.9rem;outline:none;}
-    .chat-input button{background:var(--primary);color:#fff;border:none;padding:0 1rem;cursor:pointer;font-size:1rem;}
-    .msg{margin-bottom:0.5rem;line-height:1.4;}
-    .msg.user{text-align:right;}
-    .msg.bot{text-align:left;}
-
+    .chat-toggle {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      transition: all 0.3s ease;
+    }
+    
+    .chat-toggle:hover {
+      background: var(--secondary);
+      transform: scale(1.1);
+    }
+    
+    .chat-window {
+      position: fixed;
+      right: 1rem;
+      bottom: 5.5rem;
+      width: 350px;
+      max-width: calc(100vw - 2rem);
+      height: 450px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1200;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .chat-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+    }
+    
+    .chat-close {
+      background: transparent;
+      border: none;
+      color: var(--white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0 0.5rem;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      padding: 1.25rem;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      background: var(--light);
+    }
+    
+    .chat-input { 
+      display: flex; 
+      border-top: 1px solid #ddd;
+      background: var(--white);
+    }
+    
+    .chat-input input { 
+      flex: 1; 
+      border: none; 
+      padding: 1rem; 
+      font-size: 0.95rem; 
+      outline: none;
+    }
+    
+    .chat-input button { 
+      background: var(--primary); 
+      color: var(--white); 
+      border: none; 
+      padding: 0 1.25rem; 
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .chat-input button:hover {
+      background: var(--secondary);
+    }
+    
+    .msg { 
+      margin-bottom: 1rem; 
+      line-height: 1.5;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    
+    .msg.user { 
+      text-align: right;
+      background: var(--primary);
+      color: var(--white);
+      margin-left: auto;
+    }
+    
+    .msg.bot { 
+      text-align: left;
+      background: var(--white);
+      color: var(--dark);
+      border: 1px solid #ddd;
+      margin-right: auto;
+    }
+    
     /* Responsive */
-    @media(min-width:768px){nav a{margin:0 1.5rem;}#welcome h1{font-size:2.5rem;}}
+    @media (max-width: 768px) {
+      section {
+        padding: 2rem 1rem;
+      }
+      
+      #welcome h1 {
+        font-size: 2rem;
+      }
+      
+      #welcome p {
+        font-size: 1rem;
+      }
+      
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+      
+      .logo-icon {
+        height: 32px; /* Taille réduite pour mobile */
+      }
+      
+      .chat-window {
+        width: calc(100vw - 2rem);
+        right: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -60,7 +352,7 @@
   <header>
     <nav>
       <div class="logo">
-        <img src="assets/b-lab-logo.svg" class="logo-icon" alt="B‑LAB logo" />
+        <img src="https://raw.githubusercontent.com/BinouB/Lab-project/main/Capture%20d%E2%80%99%C3%A9cran%20(137).png" class="logo-icon" alt="B‑LAB logo" />
         <span>B‑LAB</span>
         <img src="assets/senegal-flag.svg" class="flag-icon" alt="Flag of Senegal" />
       </div>
@@ -72,16 +364,19 @@
     </nav>
   </header>
 
-  <!-- Welcome Section -->
+  <!-- Welcome Section - Plein écran -->
   <section id="welcome" class="active">
-    <h1>Welcome to B-LAB</h1>
-    <p>B-LAB is a medical diagnostics laboratory located at the Fann Hospital in Dakar, within the Infectious and Tropical Diseases Department. We specialize in infectious disease research and routine testing. Our team consists of highly qualified professionals committed to ethical, accurate and high‑quality work.</p>
-    <img class="hero-img" src="assets/lab-hero.jpg" alt="B-LAB laboratory overview" />
+    <img src="https://raw.githubusercontent.com/BinouB/Lab-project/main/BIOPATH_1.jpeg" alt="B-LAB Laboratory" class="welcome-bg">
+    <div class="welcome-overlay">
+      <h1>Welcome to B-LAB</h1>
+      <p>B-LAB is a medical diagnostics laboratory located at the Fann Hospital in Dakar, within the Infectious and Tropical Diseases Department. We specialize in infectious disease research and routine testing. Our team consists of highly qualified professionals committed to ethical, accurate and high‑quality work.</p>
+    </div>
   </section>
 
   <!-- Medical Analyses Section -->
   <section id="analyses">
     <h2>Medical Analyses</h2>
+    
     <h3>Blood Biochemistry</h3>
     <ul>
       <li>Transaminases (ALT &amp; AST), Gamma‑GT</li>
@@ -93,6 +388,7 @@
       <li>Protein Assays (Albumin, Total Proteins)</li>
       <li>Enzymatic Assays (CPK, LDH, Amylase, Lipase)</li>
     </ul>
+    
     <h3>Hematology</h3>
     <ul>
       <li>Complete Blood Count (CBC)</li>
@@ -101,8 +397,14 @@
       <li>Coagulation Factor Testing</li>
       <li>Antibody Screening (Direct &amp; Indirect Coombs Test)</li>
     </ul>
+    
     <h3>Urinalysis</h3>
-    <ul><li>Urine Test Strips</li></ul>
+    <ul>
+      <li>Urine Test Strips</li>
+      <li>Microscopic Examination</li>
+      <li>Protein/Creatinine Ratio</li>
+    </ul>
+    
     <h3>Serology</h3>
     <ul>
       <li><strong>Viral Hepatitis</strong>: Hepatitis A (IgG + IgM), HBsAg, Anti‑HBs, Anti‑HBc, Hepatitis C Antibodies</li>
@@ -113,140 +415,186 @@
       <li>Chlamydia (IgG Serology)</li>
       <li><strong>Detection Techniques</strong>: Flocculation, Complement Fixation, Immunofluorescence, ELISA, Western Blot</li>
     </ul>
+    
     <h3>Parasitology</h3>
     <ul>
       <li>Stool Parasite Examination</li>
       <li>Urine &amp; Blood Parasite Detection</li>
+      <li>Malaria Diagnosis (Thick and Thin Smears)</li>
     </ul>
+    
     <h3>Molecular Biology</h3>
     <ul>
       <li>PCR, RT‑PCR, LAMP, DNA Amplification</li>
       <li>Sequencing, Genotyping, Karyotyping</li>
+      <li>Viral Load Quantification</li>
     </ul>
+    
     <h3>Sample Collection Conditions</h3>
     <ul>
       <li><strong>Blood Biochemistry</strong>: Fasting required (8‑12h) for glucose, cholesterol, triglycerides.</li>
       <li><strong>Urinalysis</strong>: Avoid contamination (genital cleaning before collection).</li>
+      <li><strong>Hormonal Tests</strong>: Specific timing may be required for certain hormones.</li>
     </ul>
   </section>
 
   <!-- Contact Section -->
   <section id="contact">
     <h2>Contact Us</h2>
+    
     <div class="contact-card">
       <h3>Prof. Moussa Seydi</h3>
       <p>Head, Infectious Diseases, CHNU Fann, Dakar<br />
       <a href="mailto:seydi.moussa@gmail.com">seydi.moussa@gmail.com</a></p>
     </div>
+    
     <div class="contact-card">
-      <h3>Dr. Bruce Wembulua Shinga</h3>
-      <p>MD, MSc, PhD<br />
-      <a href="mailto:bruliawems@gmail.com">bruliawems@gmail.com</a></p>
+      <h3>Dr. Bruce Wainer</h3>
+      <p>Laboratory Director<br />
+      <a href="mailto:bwainer@blab.sn">bwainer@blab.sn</a></p>
     </div>
+    
     <div class="contact-card">
-      <h3>Dr. Bintou Fall</h3>
-      <p>PhD, Research Biologist, CHNU Fann, Dakar<br />
-      <a href="mailto:bintoufall2298@gmail.com">bintoufall2298@gmail.com</a></p>
+      <h3>Location & Hours</h3>
+      <p>CHNU Fann, Infectious Diseases Department<br />
+      BP 5035, Dakar, Senegal<br />
+      Phone: +221 33 869 30 30<br />
+      Open: Monday-Friday 7:30AM-5:00PM<br />
+      Saturday 8:00AM-12:00PM</p>
+    </div>
+    
+    <div class="contact-card">
+      <h3>Emergency Contacts</h3>
+      <p>After-hours emergencies: +221 77 555 32 10<br />
+      Technical support: support@blab.sn</p>
     </div>
   </section>
 
   <!-- Chatbot -->
-  <button class="chat-toggle" id="chatToggle">💬</button>
-  <div class="chat-window" id="chatWindow">
-    <div class="chat-header">B-LAB Chatbot <span id="chatClose" style="cursor:pointer;font-weight:700;">&times;</span></div>
-    <div class="chat-messages" id="chatMessages"></div>
+  <button class="chat-toggle" aria-label="Open chat">💬</button>
+  <div class="chat-window">
+    <div class="chat-header">
+      <span>B-LAB Assistant</span>
+      <button class="chat-close" aria-label="Close chat">×</button>
+    </div>
+    <div class="chat-messages">
+      <div class="msg bot">Hello! I'm the B-LAB virtual assistant. How can I help you today? Here are common questions:<br><br>
+        • What are your opening hours?<br>
+        • How to prepare for a test?<br>
+        • Where are you located?</div>
+    </div>
     <div class="chat-input">
-      <input type="text" id="chatInput" placeholder="Type your message…" />
-      <button id="chatSend">Send</button>
+      <input type="text" placeholder="Type your message..." aria-label="Type your message" />
+      <button aria-label="Send message">Send</button>
     </div>
   </div>
 
   <script>
-    // ---------- Navigation Logic ----------
-    document.addEventListener("DOMContentLoaded", () => {
-      const sections = document.querySelectorAll("section");
-      const navLinks = document.querySelectorAll("nav a");
-
-      function showSection(id) {
-        sections.forEach(sec => {
-          if (sec.id === id) {
-            sec.classList.add("active");
-          } else {
-            sec.classList.remove("active");
-          }
+    // Navigation between sections
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        
+        // Hide all sections
+        document.querySelectorAll('section').forEach(section => {
+          section.classList.remove('active');
         });
-      }
-
-      function applyHash() {
-        const id = location.hash.replace("#", "") || "welcome";
-        showSection(id);
-      }
-
-      navLinks.forEach(link => {
-        link.addEventListener("click", () => {
-          // allow hash to update first
-          setTimeout(applyHash, 10);
+        
+        // Show target section
+        document.querySelector(targetId).classList.add('active');
+        
+        // Scroll to top smoothly
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
         });
       });
-
-      window.addEventListener("hashchange", applyHash);
-      applyHash();
     });
 
-    // ---------- Chatbot Logic ----------
-    (() => {
-      const toggleBtn = document.getElementById("chatToggle");
-      const chatWindow = document.getElementById("chatWindow");
-      const closeBtn = document.getElementById("chatClose");
-      const msgContainer = document.getElementById("chatMessages");
-      const input = document.getElementById("chatInput");
-      const sendBtn = document.getElementById("chatSend");
+    // Chatbot functionality
+    const chatToggle = document.querySelector('.chat-toggle');
+    const chatWindow = document.querySelector('.chat-window');
+    const chatClose = document.querySelector('.chat-close');
+    const chatInput = document.querySelector('.chat-input input');
+    const chatSend = document.querySelector('.chat-input button');
+    const chatMessages = document.querySelector('.chat-messages');
 
-      const responses = {
-        analyses:"We offer a wide range of analyses including blood biochemistry, hematology, serology, parasitology and molecular biology.",
-        horaires:"We are open Monday to Friday, 8:00 am – 5:00 pm.",
-        rendez:"To book an appointment, please email bruliawems@gmail.com or call +221 XX XXX XX XX.",
-        localisation:"We are located at CHNU Fann, Infectious and Tropical Diseases Department, Dakar.",
-        contact:"You can email Prof. Seydi at seydi.moussa@gmail.com or the lab at bruliawems@gmail.com."
-      };
+    // Toggle chat window
+    chatToggle.addEventListener('click', () => {
+      const isVisible = chatWindow.style.display === 'flex';
+      chatWindow.style.display = isVisible ? 'none' : 'flex';
+      chatToggle.setAttribute('aria-label', isVisible ? 'Open chat' : 'Close chat');
+      
+      // Focus input when opening
+      if (!isVisible) chatInput.focus();
+    });
 
-      function appendMessage(text, type) {
-        const p = document.createElement("p");
-        p.className = `msg ${type}`;
-        p.textContent = text;
-        msgContainer.appendChild(p);
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+    // Close chat
+    chatClose.addEventListener('click', () => {
+      chatWindow.style.display = 'none';
+      chatToggle.setAttribute('aria-label', 'Open chat');
+    });
+
+    // Add message to chat
+    function addMessage(text, isUser) {
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('msg', isUser ? 'user' : 'bot');
+      msgDiv.textContent = text;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Simple responses
+    function getBotResponse(userMessage) {
+      const lowerMsg = userMessage.toLowerCase();
+      
+      if (lowerMsg.includes('hour') || lowerMsg.includes('open')) {
+        return "We're open Monday-Friday from 7:30AM to 5:00PM, and Saturdays from 8:00AM to 12:00PM.";
+      } else if (lowerMsg.includes('test') || lowerMsg.includes('prepare')) {
+        return "Most blood tests require 8-12 hours fasting. For urine tests, please clean the genital area before collection. Specific tests may have additional requirements.";
+      } else if (lowerMsg.includes('location') || lowerMsg.includes('where')) {
+        return "We're located at CHNU Fann, Infectious Diseases Department, BP 5035, Dakar, Senegal.";
+      } else if (lowerMsg.includes('contact') || lowerMsg.includes('phone')) {
+        return "You can reach us at +221 33 869 30 30 during working hours, or +221 77 555 32 10 for emergencies.";
+      } else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) {
+        return "Hello! How can I assist you today?";
+      } else {
+        return "Thank you for your message. For detailed inquiries, please call +221 33 869 30 30 or email info@blab.sn";
       }
+    }
 
-      function botReply(userText) {
-        const lower = userText.toLowerCase();
-        const key = Object.keys(responses).find(k => lower.includes(k));
-        const reply = key ? responses[key] : "I'm not sure I understand. Could you please rephrase or send us an email?";
-        appendMessage(reply, "bot");
+    // Send message
+    function sendMessage() {
+      const message = chatInput.value.trim();
+      if (message) {
+        addMessage(message, true);
+        chatInput.value = '';
+        
+        // Bot response after short delay
+        setTimeout(() => {
+          const response = getBotResponse(message);
+          addMessage(response, false);
+        }, 800);
       }
+    }
 
-      function sendMessage() {
-        const text = input.value.trim();
-        if (!text) return;
-        appendMessage(text, "user");
-        input.value = "";
-        setTimeout(() => botReply(text), 500);
+    // Send button click
+    chatSend.addEventListener('click', sendMessage);
+
+    // Enter key press
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
       }
+    });
 
-      toggleBtn.addEventListener("click", () => {
-        chatWindow.style.display = chatWindow.style.display === "flex" ? "none" : "flex";
-        if (chatWindow.style.display === "flex") {
-          msgContainer.scrollTop = msgContainer.scrollHeight;
-          input.focus();
-        }
-      });
-
-      closeBtn.addEventListener("click", () => chatWindow.style.display = "none");
-      sendBtn.addEventListener("click", sendMessage);
-      input.addEventListener("keypress", e => {
-        if (e.key === "Enter") sendMessage();
-      });
-    })();
+    // Auto-open welcome section if none is active
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!document.querySelector('section.active')) {
+        document.querySelector('#welcome').classList.add('active');
+      }
+    });
   </script>
 </body>
 </html>
